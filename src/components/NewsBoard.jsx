@@ -10,10 +10,16 @@ const NewsBoard = ({category}) => {
     useEffect(() => {
       const fetchApi = async () => {
         const url = `https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=ef48bd2435444e019884ddc4baa01965`
+        try{
         const response = await fetch(url);
         const resJson = await response.json();
+     
         // console.log(resJson)
         setArticles(resJson.articles )
+      }
+      catch {
+        console.error('Failed');
+      }
       };
       fetchApi();
     }, [category]);
