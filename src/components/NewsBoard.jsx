@@ -5,13 +5,19 @@ import { useState,useEffect } from 'react'
 const NewsBoard = ({category}) => {
     const [articles,setArticles]=useState([])
 
-    useEffect(()=>{
-       let url =`https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=ef48bd2435444e019884ddc4baa01965`
-        fetch(url).then(response=>response.json()).then(data=>setArticles(data.articles ))
-      
-        
 
-    },[category])
+
+    useEffect(() => {
+      const fetchApi = async () => {
+        const url = `https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=ef48bd2435444e019884ddc4baa01965`
+        const response = await fetch(url);
+        const resJson = await response.json();
+        // console.log(resJson)
+        setArticles(resJson.articles )
+      };
+      fetchApi();
+    }, [category]);
+    
   return (
     <div>
       <h1 className='text-center'>Latest <span className='badge bg-danger'>News</span></h1>
